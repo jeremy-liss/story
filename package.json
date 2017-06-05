@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node server/index",
     "knex": "knex",
     "build": "webpack -p"
   },
@@ -18,7 +19,11 @@
   },
   "homepage": "https://github.com/jeremy-liss/story#readme",
   "dependencies": {
-    "knex": "^0.13.0"
+    "body-parser": "^1.17.1",
+    "cors": "^2.8.3",
+    "express": "^4.15.2",
+    "knex": "^0.13.0",
+    "sqlite3": "^3.1.8"
   },
   "devDependencies": {
     "webpack": "^2.6.1",
