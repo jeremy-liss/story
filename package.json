@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node server/index",
     "knex": "knex",
-    "build": "webpack -p"
+    "build": "webpack -p",
+    "watch": "nodemon -e js,jsx -x npm test",
+    "dev": "nodemon --watch server server/index & webpack --watch"
   },
   "repository": {
     "type": "git",
@@ -17,15 +19,47 @@
   "bugs": {
     "url": "https://github.com/jeremy-liss/story/issues"
   },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
+    ]
+  },
   "homepage": "https://github.com/jeremy-liss/story#readme",
   "dependencies": {
     "body-parser": "^1.17.1",
+    "babel-core": "^6.13.2",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0",
+    "react-flip-move": "^2.9.2",
+    "react-redux": "^4.4.5",
+    "react-router-dom": "^4.1.1",
+    "react-test-renderer": "^15.5.4",
+    "redux": "^3.5.2",
+    "redux-thunk": "^2.2.0",
+    "sqlite3": "^3.1.8",
+    "superagent": "^3.5.2",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1",
     "cors": "^2.8.3",
     "express": "^4.15.2",
     "knex": "^0.13.0",
-    "sqlite3": "^3.1.8"
+    "sqlite3": "^3.1.8",
+    "superagent": "^3.5.2"
   },
   "devDependencies": {
+    "babel-core": "^6.13.2",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2",
+    "webpack-dev-server": "^1.14.1",
     "webpack": "^2.6.1",
     "nodemon": "^1.11.0"
   }
