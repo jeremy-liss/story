@@ -21,4 +21,19 @@ const fetchLines = () => {
   }
 }
 
-export { receiveLines, fetchLines }
+const addLine = (line) => {
+  return (dispatch) => {
+    request
+      .post(`/v1/lines`)
+      .send(line)
+      .end((err, res) => {
+        if (err) {
+          console.error(err.message)
+          return
+        }
+        dispatch(receiveLines(res.body))
+      })
+  }
+}
+
+export { fetchLines, addLine }

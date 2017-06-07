@@ -23890,17 +23890,38 @@
 	  componentDidMount: function componentDidMount() {
 	    this.props.dispatch((0, _actions.fetchLines)());
 	  },
+	  handleLineAdd: function handleLineAdd(ev) {
+	    this.props.dispatch((0, _actions.addLine)({ line: ev.target.elements[0].value }));
+	  },
 	  render: function render() {
+	    var _this = this;
+	
 	    return _react2.default.createElement(
 	      'div',
 	      null,
-	      this.props.lines.map(function (obj) {
-	        return _react2.default.createElement(
-	          'p',
-	          { key: obj.id },
-	          obj.line
-	        );
-	      })
+	      _react2.default.createElement(
+	        'div',
+	        null,
+	        this.props.lines.map(function (obj) {
+	          return _react2.default.createElement(
+	            'p',
+	            { key: obj.id },
+	            obj.line
+	          );
+	        })
+	      ),
+	      _react2.default.createElement(
+	        'form',
+	        { onSubmit: function onSubmit(ev) {
+	            return _this.handleLineAdd(ev);
+	          } },
+	        _react2.default.createElement('input', { type: 'text', name: 'line', placeholder: 'Add the next sentence' }),
+	        _react2.default.createElement(
+	          'button',
+	          { type: 'submit' },
+	          'Add'
+	        )
+	      )
 	    );
 	  }
 	});
@@ -23922,7 +23943,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.fetchLines = exports.receiveLines = undefined;
+	exports.addLine = exports.fetchLines = undefined;
 	
 	var _superagent = __webpack_require__(219);
 	
@@ -23951,8 +23972,20 @@
 	  };
 	};
 	
-	exports.receiveLines = receiveLines;
+	var addLine = function addLine(line) {
+	  return function (dispatch) {
+	    _superagent2.default.post('/v1/lines').send(line).end(function (err, res) {
+	      if (err) {
+	        console.error(err.message);
+	        return;
+	      }
+	      dispatch(receiveLines(res.body));
+	    });
+	  };
+	};
+	
 	exports.fetchLines = fetchLines;
+	exports.addLine = addLine;
 
 /***/ }),
 /* 219 */

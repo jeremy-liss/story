@@ -13,5 +13,13 @@ router.route('/')
       res.status(500).send(err)
     })
   })
+  .post(function (req, res) {
+    db.addLine(req.body.line).then((result) => {
+      res.send(result)
+    })
+    .catch((err) => {
+      res.status(500).send(err)
+    })
+  })
 
 module.exports = router;
