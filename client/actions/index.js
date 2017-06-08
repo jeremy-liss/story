@@ -36,4 +36,18 @@ const addLine = (line) => {
   }
 }
 
-export { fetchLines, addLine }
+const delLine = (id) => {
+  return (dispatch) => {
+    request
+    .delete(`/v1/lines`)
+    .send(id)
+    .end((err, res) => {
+      if (err) {
+        return
+      }
+      dispatch(receiveLines(res.body))
+    })
+  }
+}
+
+export { fetchLines, addLine, delLine }

@@ -21,5 +21,13 @@ router.route('/')
       res.status(500).send(err)
     })
   })
+  .delete(function (req, res) {
+    db.delLine(req.body.id).then((result) => {
+      res.send(result)
+    })
+    .catch((err) => {
+      res.status(500).send(err)
+    })
+  })
 
 module.exports = router;

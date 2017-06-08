@@ -5,6 +5,7 @@ var knex = require('knex')(config)
 module.exports = {
   getLines: getLines,
   addLine: addLine,
+  delLine: delLine,
   knex: knex
 }
 
@@ -15,6 +16,16 @@ function getLines () {
 function addLine (line) {
   return knex('lines')
     .insert({line:line})
+    .then(function(){
+      return knex('lines')
+      .select()
+    })
+}
+
+function delLine (id) {
+  return knex('lines')
+    .where('id', id)
+    .del()
     .then(function(){
       return knex('lines')
       .select()

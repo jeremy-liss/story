@@ -23883,6 +23883,10 @@
 	
 	var _actions = __webpack_require__(218);
 	
+	var _Lines = __webpack_require__(227);
+	
+	var _Lines2 = _interopRequireDefault(_Lines);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var App = _react2.default.createClass({
@@ -23893,21 +23897,19 @@
 	  handleLineAdd: function handleLineAdd(ev) {
 	    this.props.dispatch((0, _actions.addLine)({ line: ev.target.elements[0].value }));
 	  },
-	  render: function render() {
+	  render: function render(props) {
 	    var _this = this;
 	
+	    var length = this.props.lines.length;
+	    console.log(length);
 	    return _react2.default.createElement(
 	      'div',
 	      null,
 	      _react2.default.createElement(
 	        'div',
 	        null,
-	        this.props.lines.map(function (obj) {
-	          return _react2.default.createElement(
-	            'p',
-	            { key: obj.id },
-	            obj.line
-	          );
+	        this.props.lines.map(function (obj, i) {
+	          return _react2.default.createElement(_Lines2.default, { line: obj.line, id: obj.id, key: obj.id, i: i, length: length });
 	        })
 	      ),
 	      _react2.default.createElement(
@@ -23943,7 +23945,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.addLine = exports.fetchLines = undefined;
+	exports.delLine = exports.addLine = exports.fetchLines = undefined;
 	
 	var _superagent = __webpack_require__(219);
 	
@@ -23984,8 +23986,20 @@
 	  };
 	};
 	
+	var delLine = function delLine(id) {
+	  return function (dispatch) {
+	    _superagent2.default.delete('/v1/lines').send(id).end(function (err, res) {
+	      if (err) {
+	        return;
+	      }
+	      dispatch(receiveLines(res.body));
+	    });
+	  };
+	};
+	
 	exports.fetchLines = fetchLines;
 	exports.addLine = addLine;
+	exports.delLine = delLine;
 
 /***/ }),
 /* 219 */
@@ -25976,6 +25990,54 @@
 	  if (err && 'crossDomain' in err) return true;
 	  return false;
 	};
+
+/***/ }),
+/* 227 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(182);
+	
+	var _actions = __webpack_require__(218);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Lines = function Lines(props) {
+	
+	  var handleDelLine = function handleDelLine(id) {
+	    props.dispatch((0, _actions.delLine)({ id: id }));
+	  };
+	
+	  return _react2.default.createElement(
+	    'p',
+	    null,
+	    props.line,
+	    props.i === props.length - 1 && _react2.default.createElement(
+	      'button',
+	      { onClick: function onClick() {
+	          return handleDelLine(props.id);
+	        } },
+	      'remove'
+	    )
+	  );
+	};
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    dispatch: state.dispatch
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Lines);
 
 /***/ })
 /******/ ]);

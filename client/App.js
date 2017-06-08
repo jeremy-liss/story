@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { fetchLines, addLine } from './actions'
+import { fetchLines, addLine, delLine } from './actions'
+
+import Lines from './Lines'
 
 const App = React.createClass ({
 
@@ -12,12 +14,14 @@ const App = React.createClass ({
     this.props.dispatch(addLine({line: ev.target.elements[0].value}))
   },
 
-  render (){
+  render (props){
+    const length = this.props.lines.length
+    console.log(length)
     return (
       <div>
         <div>
-          {this.props.lines.map(function(obj){
-            return <p key={obj.id}>{obj.line}</p>
+          {this.props.lines.map(function(obj, i){
+            return <Lines line={obj.line} id={obj.id} key={obj.id} i={i} length={length} />
           })}
         </div>
         <form onSubmit={(ev)=> this.handleLineAdd(ev)}>
