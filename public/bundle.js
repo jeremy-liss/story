@@ -23875,6 +23875,8 @@
 	  value: true
 	});
 	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -23889,44 +23891,74 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var App = _react2.default.createClass({
-	  displayName: 'App',
-	  componentDidMount: function componentDidMount() {
-	    this.props.dispatch((0, _actions.fetchLines)());
-	  },
-	  handleLineAdd: function handleLineAdd(ev) {
-	    this.props.dispatch((0, _actions.addLine)({ line: ev.target.elements[0].value }));
-	  },
-	  render: function render(props) {
-	    var _this = this;
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	    var length = this.props.lines.length;
-	    console.log(length);
-	    return _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement(
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var App = function (_React$Component) {
+	  _inherits(App, _React$Component);
+	
+	  function App() {
+	    _classCallCheck(this, App);
+	
+	    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+	  }
+	
+	  _createClass(App, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.props.dispatch((0, _actions.fetchLines)());
+	    }
+	  }, {
+	    key: 'handleLineAdd',
+	    value: function handleLineAdd(ev) {
+	      this.props.dispatch((0, _actions.addLine)({ line: ev.target.elements[0].value }));
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render(props) {
+	      var _this2 = this;
+	
+	      var length = this.props.lines.length;
+	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        this.props.lines.map(function (obj, i) {
-	          return _react2.default.createElement(_Lines2.default, { line: obj.line, id: obj.id, key: obj.id, i: i, length: length });
-	        })
-	      ),
-	      _react2.default.createElement(
-	        'form',
-	        { onSubmit: function onSubmit(ev) {
-	            return _this.handleLineAdd(ev);
-	          } },
-	        _react2.default.createElement('input', { type: 'text', name: 'line', placeholder: 'Add the next sentence' }),
 	        _react2.default.createElement(
-	          'button',
-	          { type: 'submit' },
-	          'Add'
+	          'h1',
+	          null,
+	          'Add The Next Sentence To This Story If It Pleases You'
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'story' },
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            this.props.lines.map(function (obj, i) {
+	              return _react2.default.createElement(_Lines2.default, { line: obj.line, id: obj.id, key: obj.id, i: i, length: length });
+	            })
+	          ),
+	          _react2.default.createElement(
+	            'form',
+	            { onSubmit: function onSubmit(ev) {
+	                return _this2.handleLineAdd(ev);
+	              } },
+	            _react2.default.createElement('input', { type: 'text', name: 'line', placeholder: 'Add the next sentence' }),
+	            _react2.default.createElement(
+	              'button',
+	              { type: 'submit' },
+	              'Add'
+	            )
+	          )
 	        )
-	      )
-	    );
-	  }
-	});
+	      );
+	    }
+	  }]);
+	
+	  return App;
+	}(_react2.default.Component);
 	
 	var mapStateToProps = function mapStateToProps(state) {
 	  return {
